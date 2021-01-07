@@ -1,5 +1,6 @@
 import app from 'firebase/app';
 import 'firebase/auth';
+import'firebase/firestore';
 
 
 const config = {
@@ -13,15 +14,17 @@ const config = {
     measurementId: "G-ZWP97T2XPR"
 };
 
-// Initialize Firebase
+// Initialize Firebase 
 class Firebase {
     constructor() {
         app.initializeApp(config);
         this.auth = app.auth();
+        this.db =app.firestore();
     }
 
     // inscription
-    signupUser = (email, password) =>
+
+    signupUser = ( email, password )  =>
         this.auth.createUserWithEmailAndPassword(email, password);
 
 
@@ -29,8 +32,15 @@ class Firebase {
     loginUser = (email, password) =>
         this.auth.signInWithEmailAndPassword(email, password);
 
-    // Deconnexion
+    // DeconnexionÒ
     signoutUser = () => this.auth.signOut()
+
+    //Récuprérer le mod de passe
+    passwordReset = email =>this.auth.sendPasswordResetEmail(email);
+     
+    user = uid => this.db.doc(`users/${uid}`);
+
+
 
 }
 

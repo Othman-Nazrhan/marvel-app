@@ -5,8 +5,8 @@ const Header = () => {
     return (
       
         <header className="banner-container">
-            <Link to="/" > <button  >Home</button></Link> 
-         <h1> Marvel Quiz</h1>
+            <Link to="/" >  <h1> Marvel Quiz</h1> </Link> 
+        
         </header>
         
     )
