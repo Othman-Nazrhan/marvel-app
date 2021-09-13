@@ -50,7 +50,7 @@ const Landing = () => {
             </div>
         </Fragment>
     )
-    console.log(refWilverine)
+    
     return (
         <main ref={refWilverine} className="welcomePage">
             {displayBtn}

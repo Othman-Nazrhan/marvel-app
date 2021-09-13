@@ -49,6 +49,7 @@ const Welcome = props => {
 
         </Fragment>
     ) : (
+      
             <div className="quiz-bg">
                 <div className="container">
                     <Logout />
@@ -56,9 +57,6 @@ const Welcome = props => {
                 </div>
             </div>
         )
-
-
-
 }
 
 export default Welcome
