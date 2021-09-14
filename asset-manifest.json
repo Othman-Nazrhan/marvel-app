@@ -1,26 +1,26 @@
 {
   "files": {
     "main.css": "/marvel-app/static/css/main.602e99a6.chunk.css",
-    "main.js": "/marvel-app/static/js/main.bdbbae07.chunk.js",
-    "main.js.map": "/marvel-app/static/js/main.bdbbae07.chunk.js.map",
-    "runtime-main.js": "/marvel-app/static/js/runtime-main.a9621f1e.js",
-    "runtime-main.js.map": "/marvel-app/static/js/runtime-main.a9621f1e.js.map",
+    "main.js": "/marvel-app/static/js/main.27f686a9.chunk.js",
+    "main.js.map": "/marvel-app/static/js/main.27f686a9.chunk.js.map",
+    "runtime-main.js": "/marvel-app/static/js/runtime-main.cb1a6a69.js",
+    "runtime-main.js.map": "/marvel-app/static/js/runtime-main.cb1a6a69.js.map",
     "static/css/2.21158041.chunk.css": "/marvel-app/static/css/2.21158041.chunk.css",
-    "static/js/2.7e4c94ed.chunk.js": "/marvel-app/static/js/2.7e4c94ed.chunk.js",
-    "static/js/2.7e4c94ed.chunk.js.map": "/marvel-app/static/js/2.7e4c94ed.chunk.js.map",
+    "static/js/2.096ad9d7.chunk.js": "/marvel-app/static/js/2.096ad9d7.chunk.js",
+    "static/js/2.096ad9d7.chunk.js.map": "/marvel-app/static/js/2.096ad9d7.chunk.js.map",
     "index.html": "/marvel-app/index.html",
-    "precache-manifest.e976f9fe5b2d5ee9d24febb53d9cd2da.js": "/marvel-app/precache-manifest.e976f9fe5b2d5ee9d24febb53d9cd2da.js",
+    "precache-manifest.91fa1da107fb9eb408ba0118261d2f82.js": "/marvel-app/precache-manifest.91fa1da107fb9eb408ba0118261d2f82.js",
     "service-worker.js": "/marvel-app/service-worker.js",
     "static/css/2.21158041.chunk.css.map": "/marvel-app/static/css/2.21158041.chunk.css.map",
     "static/css/main.602e99a6.chunk.css.map": "/marvel-app/static/css/main.602e99a6.chunk.css.map",
-    "static/js/2.7e4c94ed.chunk.js.LICENSE.txt": "/marvel-app/static/js/2.7e4c94ed.chunk.js.LICENSE.txt",
+    "static/js/2.096ad9d7.chunk.js.LICENSE.txt": "/marvel-app/static/js/2.096ad9d7.chunk.js.LICENSE.txt",
     "static/media/App.css": "/marvel-app/static/media/xmen.738ca667.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.a9621f1e.js",
+    "static/js/runtime-main.cb1a6a69.js",
     "static/css/2.21158041.chunk.css",
-    "static/js/2.7e4c94ed.chunk.js",
+    "static/js/2.096ad9d7.chunk.js",
     "static/css/main.602e99a6.chunk.css",
-    "static/js/main.bdbbae07.chunk.js"
+    "static/js/main.27f686a9.chunk.js"
   ]
 }
