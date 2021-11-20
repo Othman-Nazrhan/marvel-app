@@ -8,7 +8,7 @@ const optionLevel = () => {
 
     return (
         <div className="levelsContainer">
-            <h2 className="headingLevels">{optionLevel}</h2>
+            <h2 className="headingLevels ">{optionLevel}</h2>
         </div>
     )
 }

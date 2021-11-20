@@ -24,15 +24,7 @@ const userAnswerTable = asked.map(res => {
             <td>{res.answer}</td>
             <td><button className="btnSubmit">Info</button></td>
         </tr>
-
-)
-    
-})
-
-
-
-
-
+)})
     return (
         <Fragment>
             <div className="stepsBtnContainer">

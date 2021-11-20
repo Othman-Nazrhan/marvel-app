@@ -29,6 +29,7 @@ const Welcome = props => {
                     if (doc && doc.exists) {
                         const myDate = doc.data();
                         setUserData(myDate)
+                        console.log(myDate)
                     }
                 })
                 .catch(error => {
@@ -51,12 +52,11 @@ const Welcome = props => {
     ) : (
       
             <div className="quiz-bg">
-                <div className="container">
+                <div className="container"  style={{backgroundColor:'#181a1b'}}>
                     <Logout />
                     <Quiz userData={userData} />
                 </div>
             </div>
         )
 }
-
 export default Welcome

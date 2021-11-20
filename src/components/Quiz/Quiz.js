@@ -5,6 +5,7 @@ import Levels from './Levels';
 import ProgressBar from './ProgressBar';
 import { MarvelQuiz } from './MarvelQuiz';
 import QuizOver from './QuizOver';
+
 toast.configure();
 class Quiz extends Component {
 
@@ -24,8 +25,6 @@ class Quiz extends Component {
         quizEnd: false
     }
     storedDateRef = React.createRef();
-
-     
 
     loadQuestions = quizList => {
 
@@ -107,7 +106,6 @@ class Quiz extends Component {
             this.setState(prevState =>
             ({ idQuestion: prevState.idQuestion + 1 }
             ))
-
         }
 
         const goodAnswer = this.storedDateRef.current[this.state.idQuestion].answer
@@ -153,29 +151,26 @@ class Quiz extends Component {
                 key={index}
                 className={`answerOptions ${this.state.userAnswer === option ? "selected" : null}`}
                 onClick={() => this.submitAnswer(option)}
-            >{option}</p> 
+            >{option}</p>
         })
-
-
 
         return (
             this.state.quizEnd ? (
                 <QuizOver ref={this.storedDateRef}
-                  score ={this.state.score}
-                  maxQuestions={this.state.maxQuestions}
-                  
+                    score={this.state.score}
+                    maxQuestions={this.state.maxQuestions}
                 />
             )
                 :
                 (
                     <Fragment>
-                        <Levels levelNames={this.state.levelNames}/>
-                        <ProgressBar idQuestion={this.state.idQuestion} maxQuestions={this.state.maxQuestions} />
-                        <h2>{this.state.questions}</h2>
+                        <Levels levelNames={this.state.levelNames} />
+                        <ProgressBar  idQuestion={this.state.idQuestion} maxQuestions={this.state.maxQuestions} />
+                        <h2  style={{color:"#ffffff"}}>{this.state.questions}</h2>
                         {dispatchOption}
                         <button onClick={this.submitNext}
                             disabled={this.state.btnDisabled}
-                            className="btnSubmit">{ this.state.idQuestion < this.state.maxQuestions - 1 ? "Next" : "ended" }</button>
+                            className="btnSubmit">{this.state.idQuestion < this.state.maxQuestions - 1 ? "Next" : "ended"}</button>
                     </Fragment>
                 )
 
