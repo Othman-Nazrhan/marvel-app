@@ -3,60 +3,50 @@ import Logout from '../connect/Logout';
 import { FirebaseContext } from '../firebase/'
 import Quiz from '../Quiz/Quiz';
 
-
-
 const Welcome = props => {
 
+  const firebase = useContext(FirebaseContext);
+  const [userSession, setUserSession] = useState(null);
+  const [userData, setUserData] = useState({});
 
-    const firebase = useContext(FirebaseContext);
-
-    const [userSession, setUserSession] = useState(null);
-    const [userData, setUserData] = useState({});
-
-    useEffect(() => {
-
-        // onAuthStateChanged =>  verifair user cnx
-        let listener = firebase.auth.onAuthStateChanged(authUser => {
-            authUser
-                ? setUserSession(authUser)
-                : props.history.push('/');
+  useEffect(() => {
+    // onAuthStateChanged =>  verifair user cnx
+    let listener = firebase.auth.onAuthStateChanged(authUser => {
+      authUser
+        ? setUserSession(authUser)
+        : props.history.push('/');
+    })
+    if (!!userSession) {
+      firebase.user(userSession.uid)
+        .get()
+        .then(doc => {
+          if (doc && doc.exists) {
+            const myDate = doc.data();
+            setUserData(myDate)
+          }
         })
+        .catch(error => {
+          console.error(error);
+        })
+    }
+    return () => {
+      listener()
+    };
 
-        if (!!userSession) {
-            firebase.user(userSession.uid)
-                .get()
-                .then( doc => {
-                    if (doc && doc.exists) {
-                        const myDate = doc.data();
-                        setUserData(myDate)
-                        console.log(myDate)
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                })
+  }, [userSession])
 
-        }
-        return () => {
-            listener()
-        };
-
-    }, [userSession])
-
-    return userSession === null ? (
-        <Fragment>
-            <div className="loader"></div>
-            <p>loading....</p>
-
-        </Fragment>
-    ) : (
-      
-            <div className="quiz-bg">
-                <div className="container"  style={{backgroundColor:'#181a1b'}}>
-                    <Logout />
-                    <Quiz userData={userData} />
-                </div>
-            </div>
-        )
+  return userSession === null ? (
+    <Fragment>
+      <div className="loader"></div>
+      <p>loading....</p>
+    </Fragment>
+  ) : (
+    <div className="quiz-bg">
+      <div className="container" style={{ backgroundColor: '#181a1b' }}>
+        <Logout />
+        <Quiz userData={userData} />
+      </div>
+    </div>
+  )
 }
 export default Welcome

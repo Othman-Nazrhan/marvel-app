@@ -10,133 +10,126 @@ toast.configure();
 class Quiz extends Component {
 
 
-    state = {
-        levelNames: ["beginner", "intermediate", "advanced"],
-        quizLevel: 0,
-        maxQuestions: 10,
-        storedQuestions: [],
-        questions: null,
-        options: [],
-        idQuestion: 0,
-        userAnswer: null,
-        btnDisabled: true,
-        score: 0,
-        welcomeMsg: false,
-        quizEnd: false
-    }
-    storedDateRef = React.createRef();
+state = {
+    levelNames: ["beginner", "intermediate", "advanced"],
+    quizLevel: 0,
+    maxQuestions: 10,
+    storedQuestions: [],
+    questions: null,
+    options: [],
+    idQuestion: 0,
+    userAnswer: null,
+    btnDisabled: true,
+    score: 0,
+    welcomeMsg: false,
+    quizEnd: false
+}
+  storedDateRef = React.createRef();
 
-    loadQuestions = quizList => {
+  loadQuestions = quizList => {
 
-        const fetchArrayQuiz = MarvelQuiz[0].quizList[quizList];
-        if (fetchArrayQuiz.length >= this.state.maxQuestions) {
-            this.storedDateRef.current = fetchArrayQuiz;
+const fetchArrayQuiz = MarvelQuiz[0].quizList[quizList];
+  if (fetchArrayQuiz.length >= this.state.maxQuestions) {
+      this.storedDateRef.current = fetchArrayQuiz;
+      const newArray = fetchArrayQuiz.map(({ answer, ...KeepRest }) => KeepRest)
+      this.setState({
+          storedQuestions: newArray
+      })
+  }
+    else {
+    console.error("error quiz list ");
+  }
+}
 
-            console.log("list with answer ", this.storedDateRef.current)
+showMsgWel = name => {
+  if (!this.state.welcomeMsg) {
 
-            const newArray = fetchArrayQuiz.map(({ answer, ...KeepRest }) => KeepRest)
-            this.setState({
-                storedQuestions: newArray
-            })
-            console.log("list of Questions", newArray)
-        }
-        else {
-            console.log("error quiz list ");
-        }
-    }
+    this.setState({
+        welcomeMsg: true
+    })
+    toast(` Welcome ${name}`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    });
+  }
+}
 
-    showMsgWel = name => {
-        if (!this.state.welcomeMsg) {
+componentDidMount() {
+  this.loadQuestions(this.state.levelNames[this.state.quizLevel])
+}
 
-            this.setState({
-                welcomeMsg: true
-            })
-            toast(` Welcome ${name}`, {
-                position: "top-right",
-                autoClose: 4000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-        }
-    }
+componentDidUpdate(prevProps, prevState) {
+  if (this.state.storedQuestions !== prevState.storedQuestions) {
+    this.setState({
+      questions: this.state.storedQuestions[this.state.idQuestion].question,
+      options: this.state.storedQuestions[this.state.idQuestion].options,
+    })
+  }
 
-    componentDidMount() {
-        this.loadQuestions(this.state.levelNames[this.state.quizLevel])
-    }
+  if (this.state.idQuestion !== prevState.idQuestion) {
+    this.setState({
+      questions: this.state.storedQuestions[this.state.idQuestion].question,
+      options: this.state.storedQuestions[this.state.idQuestion].options,
+    })
+  }
+  if (this.props.userData.name) {
+      this.showMsgWel(this.props.userData.name);
+  }
+}
 
-    componentDidUpdate(prevProps, prevState) {
-        if (this.state.storedQuestions !== prevState.storedQuestions) {
-            this.setState({
-                questions: this.state.storedQuestions[this.state.idQuestion].question,
-                options: this.state.storedQuestions[this.state.idQuestion].options,
-            })
-        }
+submitAnswer = selectedAnswer => {
+  this.setState({
+    userAnswer: selectedAnswer,
+    btnDisabled: false
+  })
+}
 
+submitNext = () => {
 
-        if (this.state.idQuestion !== prevState.idQuestion) {
-            this.setState({
-                questions: this.state.storedQuestions[this.state.idQuestion].question,
-                options: this.state.storedQuestions[this.state.idQuestion].options,
-            })
+  if (this.state.idQuestion === this.state.maxQuestions - 1) {
+      this.gameOver()
+  }
+  else {
+    this.setState(prevState =>(
+      { idQuestion: prevState.idQuestion + 1 }
+      )
+    )
+  }
 
-        }
-        if (this.props.userData.name) {
-            this.showMsgWel(this.props.userData.name);
-        }
+    const goodAnswer = this.storedDateRef.current[this.state.idQuestion].answer
+    if (goodAnswer === this.state.userAnswer) {
+        this.setState(prevState => ({
+            score: prevState.score + 1
+        }))
+        toast.success(`Good Answer +1`, {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+        });
 
-
-    }
-
-    submitAnswer = selectedAnswer => {
-        this.setState({
-            userAnswer: selectedAnswer,
-            btnDisabled: false
-        })
-    }
-
-    submitNext = () => {
-
-        if (this.state.idQuestion === this.state.maxQuestions - 1) {
-            this.gameOver()
-        }
-        else {
-            this.setState(prevState =>
-            ({ idQuestion: prevState.idQuestion + 1 }
-            ))
-        }
-
-        const goodAnswer = this.storedDateRef.current[this.state.idQuestion].answer
-        if (goodAnswer === this.state.userAnswer) {
-            this.setState(prevState => ({
-                score: prevState.score + 1
-            }))
-            toast.success(`Good Answer +1`, {
-                position: "top-right",
-                autoClose: 4000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: false,
-                progress: undefined,
-            });
-
-        } else {
-            toast.error(`Bad Answer 0`, {
-                position: "top-right",
-                autoClose: 4000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: false,
-                progress: undefined,
-            });
-
-        }
+    } else {
+        toast.error(`Bad Answer 0`, {
+            position: "top-right",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+        });
 
     }
+
+}
 
     gameOver = () => {
         this.setState({
